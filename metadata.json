@@ -1,0 +1,5 @@
+{
+  "name": "SmartInventory AI",
+  "description": "A modern product inventory management system featuring PDF export and Gemini AI integration for intelligent inventory analysis and automation.",
+  "requestFramePermissions": []
+}

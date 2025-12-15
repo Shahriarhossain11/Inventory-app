@@ -1,7 +1,10 @@
 import { GoogleGenAI, Type } from "@google/genai";
 import { Product } from "../types";
 
-const apiKey = process.env.API_KEY || '';
+// Safely access process.env to prevent ReferenceError in browsers
+// If process is undefined, it defaults to empty string, preventing the white screen crash
+const apiKey = (typeof process !== 'undefined' && process.env && process.env.API_KEY) ? process.env.API_KEY : '';
+
 const ai = new GoogleGenAI({ apiKey });
 
 // Helper to sanitize JSON string if model returns markdown blocks
@@ -38,7 +41,7 @@ export const suggestProductDetails = async (productName: string): Promise<{ cate
 };
 
 export const analyzeInventory = async (inventory: Product[], userQuery: string): Promise<string> => {
-  if (!apiKey) return "API Key is missing. Please check your configuration.";
+  if (!apiKey) return "API Key is missing. Please check your configuration in Vercel settings.";
 
   // Create a lightweight version of inventory to save tokens
   const inventoryContext = inventory.map(p => ({
